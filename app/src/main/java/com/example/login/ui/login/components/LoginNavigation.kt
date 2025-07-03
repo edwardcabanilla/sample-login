@@ -10,8 +10,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.login.ui.login.MainActivity.Companion.LOGIN
 import com.example.login.ui.login.MainActivity.Companion.ONBOARDING
+import com.example.login.ui.login.MainActivity.Companion.SIGN_UP
 import com.example.login.ui.login.components.login.LoginBuilder
 import com.example.login.ui.login.components.onboarding.OnBoardingBuilder
+import com.example.login.ui.login.components.signup.SignUpBuilder
 import com.example.login.ui.login.interfaces.LoginStateListener
 import com.example.login.utils.navigation.NavigationUtil.scaleIntoContainer
 import com.example.login.utils.navigation.NavigationUtil.scaleOutOfContainer
@@ -50,6 +52,20 @@ fun LoginNavigation(listener: LoginStateListener, loginViewModel: LoginViewModel
                 },
             ) {
                 LoginBuilder(
+                    listener = listener,
+                    loginViewModel = loginViewModel
+                )
+            }
+            composable(
+                route = SIGN_UP,
+                enterTransition = {
+                    scaleIntoContainer()
+                },
+                exitTransition = {
+                    scaleOutOfContainer(direction = ScaleTransitionDirection.INWARDS)
+                },
+            ) {
+                SignUpBuilder(
                     listener = listener,
                     loginViewModel = loginViewModel
                 )

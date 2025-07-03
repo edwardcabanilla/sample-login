@@ -19,6 +19,13 @@ interface LoginStateListener {
         password: String,
     )
 
+    fun signUp(
+        username: String,
+        password: String,
+        confirmPassword: String,
+    )
+
+
     fun goToLogin()
 
     fun goToDashBoard()

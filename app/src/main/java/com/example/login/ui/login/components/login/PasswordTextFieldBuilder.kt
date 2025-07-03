@@ -52,7 +52,7 @@ fun PasswordTextFieldBuilder(
                     painter = image,
                     contentDescription = "App Logo",
                     tint = DimGray,
-                    modifier = Modifier.size(40.dp),
+                    modifier = Modifier.size(20.dp),
                 )
             }
         },

@@ -93,7 +93,7 @@ fun OnBoardingBuilder(listener: LoginStateListener) {
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
-
+                listener.goToSignUp()
             },
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier

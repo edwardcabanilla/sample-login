@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import com.example.login.ui.dashboard.DashboardActivity
 import com.example.login.ui.login.MainActivity
 import com.example.login.ui.login.MainActivity.Companion.LOGIN
+import com.example.login.ui.login.MainActivity.Companion.SIGN_UP
 import com.example.login.viewmodels.LoginViewModel
 
 class LoginStateListenerImpl : LoginStateListener {
@@ -51,7 +52,23 @@ class LoginStateListenerImpl : LoginStateListener {
     }
 
     override fun goToSignUp() {
-        TODO("Not yet implemented")
+        val nav = navHostController ?: return
+
+        nav.navigate(SIGN_UP)
+    }
+
+    override fun signUp(
+        username: String,
+        password: String,
+        confirmPassword: String,
+    ) {
+        val vm = loginViewModel ?: return
+
+        vm.postSignUpAsync(
+            username = username,
+            password = password,
+            confirmPassword = confirmPassword
+        )
     }
 
     override fun loginWithFacebook() {

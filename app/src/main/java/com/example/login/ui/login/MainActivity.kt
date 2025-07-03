@@ -25,6 +25,7 @@ class MainActivity : ComponentActivity(), LoginStateListener by LoginStateListen
     companion object {
         const val ONBOARDING = "ONBOARDING"
         const val LOGIN = "LOGIN"
+        const val SIGN_UP = "SIGN_UP"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

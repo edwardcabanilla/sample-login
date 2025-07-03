@@ -10,7 +10,7 @@ data class LoginResponse constructor(
     @field:Json(name = "message")
     val message: String,
     @field:Json(name = "data")
-    val data: LoginData,
+    val data: LoginData? = null,
 )
 
 data class LoginData constructor(

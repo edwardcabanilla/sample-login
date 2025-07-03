@@ -1,5 +1,4 @@
-import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin.Companion.isIncrementalKapt
-import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin.Companion.isKaptVerbose
+
 import java.util.Properties
 
 plugins {
@@ -8,7 +7,17 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.dagger.hilt.android.plugin)
+    alias(libs.plugins.kotlin.ksp)
 }
+
+val localProperties = Properties().apply {
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        load(localPropertiesFile.inputStream())
+    }
+}
+
+val apiKey = localProperties.getProperty("apiKey") ?: "MISSING_API_KEY"
 
 android {
     namespace = "com.example.login"
@@ -28,6 +37,8 @@ android {
                 arguments["dagger.hilt.android.internal.disableAndroidSuperclassValidation"] = "true"
             }
         }
+
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -47,6 +58,7 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 }
@@ -71,6 +83,28 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
+
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+
+    implementation(libs.timber.logging)
+    implementation(libs.playservices.location)
+    implementation(libs.coil.compose)
+
+    // Room database
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+
+    // Kotlin Extensions and Coroutines support for Room
+    implementation(libs.room.ktx)
+    implementation(libs.room.paging)
+    implementation(libs.bcrypt)
+
+
+
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
