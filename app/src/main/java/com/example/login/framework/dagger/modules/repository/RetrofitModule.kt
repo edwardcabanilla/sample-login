@@ -1,6 +1,5 @@
 package com.example.login.framework.dagger.modules.repository
 
-import com.example.login.framework.network.api.ApiService
 import com.example.login.framework.network.api.AuthInterceptor
 import dagger.Module
 import dagger.Provides
@@ -15,7 +14,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
 
-    const val BASE_URL = "https://api.openweathermap.org/"
+    const val BASE_URL = "https://reqres.in/api/"
 
     @Provides
     @Singleton

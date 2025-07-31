@@ -24,6 +24,8 @@ room = "2.6.1"
 roomKtxPaging = "2.6.1"
 kspDevtools = "2.0.0-1.0.21"
 bcrypt = "0.10.2"
+appcompat = "1.6.1"
+material = "1.10.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -61,6 +63,8 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtxPaging" }
 room-paging = { group = "androidx.room", name = "room-paging", version.ref = "roomKtxPaging" }
 bcrypt = { group = "at.favre.lib", name = "bcrypt", version.ref = "bcrypt" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 
 [plugins]

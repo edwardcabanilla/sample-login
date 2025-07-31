@@ -6,29 +6,26 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.login.framework.dagger.modules.repository.DatabaseModule
-import com.example.login.framework.database.dao.UserDetailsDao
-import com.example.login.framework.database.dao.WeatherDao
-import com.example.login.framework.database.entities.UserDetailsEntity
-import com.example.login.framework.database.entities.WeatherEntity
-import com.example.login.framework.database.room.converter.WeatherConverter
+import com.example.login.framework.database.dao.ContactListDao
+import com.example.login.framework.database.entities.ContactListEntity
+import com.example.login.framework.database.room.converter.ContactListConverter
 
-@Database(entities = [WeatherEntity::class, UserDetailsEntity::class], version = 1)
-@TypeConverters(WeatherConverter:: class)
-abstract class WeatherDatabase : RoomDatabase() {
+@Database(entities = [ContactListEntity::class], version = 1)
+@TypeConverters(ContactListConverter:: class)
+abstract class SampleDatabase : RoomDatabase() {
 
-    abstract val weatherDao: WeatherDao
-    abstract val userDetailsDao: UserDetailsDao
+    abstract val contactListDao: ContactListDao
 
     companion object {
         @Volatile
-        private var INSTANCE: WeatherDatabase? = null
-        fun getInstance(context: Context): WeatherDatabase {
+        private var INSTANCE: SampleDatabase? = null
+        fun getInstance(context: Context): SampleDatabase {
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
                     val builder = Room.databaseBuilder(
                         context.applicationContext,
-                        WeatherDatabase::class.java,
+                        SampleDatabase::class.java,
                         DatabaseModule.DATABASE_NAME
                     )
                     builder.fallbackToDestructiveMigration()

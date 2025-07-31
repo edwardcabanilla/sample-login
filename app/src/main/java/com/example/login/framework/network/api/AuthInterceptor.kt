@@ -7,7 +7,7 @@ import javax.inject.Inject
 class AuthInterceptor @Inject constructor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request().newBuilder()
-            .addHeader("Authorization", "Bearer YOUR_API_KEY")
+            .addHeader("x-api-key", "reqres-free-v1")
             .build()
         return chain.proceed(request)
     }

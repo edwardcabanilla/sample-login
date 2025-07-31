@@ -1,7 +1,7 @@
 package com.example.login.framework.dagger.modules.repository
 
 import android.content.Context
-import com.example.login.framework.database.room.WeatherDatabase
+import com.example.login.framework.database.room.SampleDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +15,7 @@ object DatabaseModule {
     const val DATABASE_NAME = "weather.db"
 
     @Provides
-    fun providesWeatherDatabase(@ApplicationContext context: Context): WeatherDatabase {
-        return WeatherDatabase.getInstance(context = context)
+    fun providesSampleDatabase(@ApplicationContext context: Context): SampleDatabase {
+        return SampleDatabase.getInstance(context = context)
     }
 }
