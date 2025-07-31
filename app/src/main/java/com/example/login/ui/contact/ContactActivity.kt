@@ -51,6 +51,9 @@ class ContactActivity : ComponentActivity(), ContactListStateListener by Contact
                         perPage = state.data.per_page
                     )
                 }
+                is ContactListState.Failure -> {
+                    contactViewModel.getLocalContactList(page = 0, perPage = 0)
+                }
                 else -> { }
             }
         }

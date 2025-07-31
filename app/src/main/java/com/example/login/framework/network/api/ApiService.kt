@@ -7,7 +7,7 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("users")
-    suspend fun getContactList(
+    suspend fun getContactListAsync(
         @Query("page") page: Int,
         @Query("per_page") per_page: Int,
     ): ContactResponse

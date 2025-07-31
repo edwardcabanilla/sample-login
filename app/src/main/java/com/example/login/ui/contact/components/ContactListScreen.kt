@@ -25,14 +25,11 @@ import androidx.compose.ui.unit.dp
 import com.example.login.framework.network.api.state.ContactListState
 import com.example.login.viewmodels.ContactViewModel
 
-
 @Composable
 fun ContactListScreen(padding: PaddingValues, contactViewModel: ContactViewModel) {
     val contactState = contactViewModel.contactState.collectAsState().value
-
     var currentPage by remember { mutableIntStateOf(0) }
     val itemsPerPage = 5
-
 
     Column(modifier = Modifier.fillMaxSize().padding(padding)) {
         Text(

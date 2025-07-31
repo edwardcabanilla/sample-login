@@ -15,7 +15,10 @@ fun ContactListBuilder(contactViewModel: ContactViewModel, listener: ContactList
         modifier = Modifier
             .fillMaxSize().padding(16.dp),
     ) { padding ->
-        ContactListScreen(padding, contactViewModel)
+        ContactListScreen(
+            padding = padding,
+            contactViewModel = contactViewModel
+        )
     }
 }
 

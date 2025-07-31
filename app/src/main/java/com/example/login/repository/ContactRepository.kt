@@ -13,8 +13,8 @@ class ContactRepository @Inject constructor(
     private val db: SampleDatabase
 ) : BaseRepository() {
 
-    suspend fun getContactList(page: Int, perPage: Int) = safeApiCall {
-        val response = api.getContactList(page, perPage)
+    suspend fun getContactListAsync(page: Int, perPage: Int) = safeApiCall {
+        val response = api.getContactListAsync(page, perPage)
         response.apply {
             insertContact()
         }
