@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.login.framework.network.api.state.ContactListState
+import com.example.login.ui.generic.LoadingScreen
 import com.example.login.viewmodels.ContactViewModel
 
 @Composable
@@ -76,6 +77,7 @@ fun ContactListScreen(padding: PaddingValues, contactViewModel: ContactViewModel
                     }
                 }
             }
+            is ContactListState.Loading -> { LoadingScreen() }
             else -> {}
         }
     }

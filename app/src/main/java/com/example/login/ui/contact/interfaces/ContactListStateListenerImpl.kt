@@ -2,6 +2,7 @@ package com.example.login.ui.contact.interfaces
 
 import com.example.login.ui.contact.ContactActivity
 import com.example.login.viewmodels.ContactViewModel
+import com.example.login.viewmodels.intents.ContactIntent
 
 class ContactListStateListenerImpl : ContactListStateListener {
     private var activity: ContactActivity? = null
@@ -22,9 +23,12 @@ class ContactListStateListenerImpl : ContactListStateListener {
     ) {
         val vm = contactViewModel ?: return
 
-        vm.getContactListAsync(
-            page = page,
-            perPage = perPage,
+
+        vm.sendIntent(
+            ContactIntent.LoadRemoteContacts(
+                page = page,
+                perPage = perPage,
+            )
         )
     }
 }

@@ -14,3 +14,4 @@ sealed class ContactListState {
 
     data object Default : ContactListState()
 }
+

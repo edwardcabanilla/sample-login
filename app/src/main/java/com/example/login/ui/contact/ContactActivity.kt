@@ -12,6 +12,7 @@ import com.example.login.ui.contact.interfaces.ContactListStateListener
 import com.example.login.ui.contact.interfaces.ContactListStateListenerImpl
 import com.example.login.ui.theme.LoginTheme
 import com.example.login.viewmodels.ContactViewModel
+import com.example.login.viewmodels.intents.ContactIntent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -46,13 +47,17 @@ class ContactActivity : ComponentActivity(), ContactListStateListener by Contact
         contactViewModel.contactState.collectLatest { state ->
             when (state) {
                 is ContactListState.Success -> {
-                    contactViewModel.getLocalContactList(
-                        page = state.data.page,
-                        perPage = state.data.per_page
+                    contactViewModel.sendIntent(
+                        ContactIntent.LoadRemoteContacts(
+                            page = state.data.page,
+                            perPage = state.data.per_page
+                        )
                     )
                 }
                 is ContactListState.Failure -> {
-                    contactViewModel.getLocalContactList(page = 0, perPage = 0)
+                    contactViewModel.sendIntent(
+                        ContactIntent.RefreshContacts
+                    )
                 }
                 else -> { }
             }

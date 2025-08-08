@@ -5,10 +5,13 @@ import com.example.login.framework.dagger.modules.repository.IoDispatcher
 import com.example.login.framework.network.api.state.ContactListState
 import com.example.login.repository.ContactRepository
 import com.example.login.repository.wrapper.ResponseWrapper
+import com.example.login.viewmodels.intents.ContactIntent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,10 +24,29 @@ class ContactViewModel @Inject constructor(
     private val _contactState = MutableStateFlow<ContactListState>(ContactListState.Default)
     val contactState: StateFlow<ContactListState> get() = _contactState
 
-    fun getContactListAsync(
-        page: Int,
-        perPage: Int,
-    ) {
+    private val intentChannel = Channel<ContactIntent>(Channel.UNLIMITED)
+
+    init {
+        handleIntents()
+    }
+
+    fun sendIntent(intent: ContactIntent) {
+        intentChannel.trySend(intent)
+    }
+
+    private fun handleIntents() {
+        viewModelScope.launch {
+            intentChannel.consumeAsFlow().collect { intent ->
+                when (intent) {
+                    is ContactIntent.LoadRemoteContacts -> getContactListAsync(intent.page, intent.perPage)
+                    is ContactIntent.LoadLocalContacts -> getLocalContactList(intent.page, intent.perPage)
+                    is ContactIntent.RefreshContacts -> getContactListAsync(page = 0, perPage = 0)
+                }
+            }
+        }
+    }
+
+    private fun getContactListAsync(page: Int, perPage: Int) {
         _contactState.value = ContactListState.Loading
         viewModelScope.launch(dispatcher) {
             try {
@@ -49,10 +71,7 @@ class ContactViewModel @Inject constructor(
         }
     }
 
-    fun getLocalContactList(
-        page: Int,
-        perPage: Int,
-    ) {
+    private fun getLocalContactList(page: Int, perPage: Int) {
         _contactState.value = ContactListState.Loading
         viewModelScope.launch {
             when (val response = contactRepository.getLocalContactList(page, perPage)) {
