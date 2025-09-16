@@ -18,6 +18,7 @@ val localProperties = Properties().apply {
 }
 
 val apiKey = localProperties.getProperty("apiKey") ?: "MISSING_API_KEY"
+val dbKey = localProperties.getProperty("dbKey") ?: "MISSING_DB_KEY"
 
 android {
     namespace = "com.example.login"
@@ -39,6 +40,7 @@ android {
         }
 
         buildConfigField("String", "API_KEY", "\"$apiKey\"")
+        buildConfigField("String", "DB_KEY", "\"$dbKey\"")
     }
 
     buildTypes {
@@ -102,8 +104,7 @@ dependencies {
     implementation(libs.room.ktx)
     implementation(libs.room.paging)
     implementation(libs.bcrypt)
-
-
+    implementation(libs.zetetic)
 
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
